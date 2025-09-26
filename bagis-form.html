@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bağış Formu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #8A2BE2, #9932CC);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo img{
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group.full-width {
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #fff;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #8A2BE2;
+        }
+
+        .donation-input {
+            position: relative;
+        }
+
+        .donation-input input {
+            padding-right: 50px;
+        }
+
+        .currency-label {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-weight: 600;
+        }
+
+        .placeholder-text {
+            color: #999;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto 0;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #222;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .form-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="logo-section">
+            <div class="logo">
+            <img src="./images/logo.png" class="card-img-top" alt="...">
+            </div>
+            <h1 class="form-title">Bir Kadını Kurtar Bağış Formu</h1>
+        </div>
+
+        <form>
+            <!-- Personal Information -->
+            <div class="form-section">
+                <div class="section-title">Bağış Bilgi Formu</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" placeholder="">
+                        <label>Ad</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="">
+                        <label>Soyad</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="email" placeholder="">
+                    <div class="placeholder-text">example@example.com</div>
+                </div>
+                <div class="form-group">
+                    <label>Telefon Numarası</label>
+                    <input type="tel" placeholder="(000) 000-0000">
+                </div>
+            </div>
+
+            <!-- Donation Amount -->
+            <div class="form-section">
+                <div class="section-title">Sesini Duyurmak İsteyenlere Ses Ol</div>
+                <div class="form-group donation-input">
+                    <input type="text" placeholder="">
+                    <span class="currency-label">TL</span>
+                    <div class="placeholder-text">Açıklama</div>
+                </div>
+            </div>
+
+            <!-- Credit Card Information -->
+            <div class="form-section">
+                <div class="section-title">Kart Bilgileri</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" placeholder="">
+                        <label>Kartın Üzerindeki İsim</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="">
+                        <label>Kartın Üzerindeki Soyisim</label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" placeholder="">
+                        <label>Kart Numarası</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="">
+                        <label>Güvenlik Kodu CVV</label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <select>
+                            <option value="">Ay Seçin</option>
+                            <option value="01">Ocak</option>
+                            <option value="02">Şubat</option>
+                            <option value="03">Mart</option>
+                            <option value="04">Nisan</option>
+                            <option value="05">Mayıs</option>
+                            <option value="06">Haziran</option>
+                            <option value="07">Temmuz</option>
+                            <option value="08">Ağustos</option>
+                            <option value="09">Eylül</option>
+                            <option value="10">Ekim</option>
+                            <option value="11">Kasım</option>
+                            <option value="12">Aralık</option>
+                        </select>
+                        <label>Son Kullanma Tarihi / Ay</label>
+                    </div>
+                    <div class="form-group">
+                        <select>
+                            <option value="">Yıl Seçin</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                        </select>
+                        <label>Son Kullanma Tarihi / Yıl</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Billing Address -->
+            <div class="form-section">
+                <div class="section-title">Fatura Adresi</div>
+                <div class="form-group full-width">
+                    <input type="text" placeholder="">
+                    <label>Adres</label>
+                </div>
+                <div class="form-group full-width">
+                    <input type="text" placeholder="">
+                    <label>Adres Devam</label>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" placeholder="">
+                        <label>Şehir</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="">
+                        <label>İlçe</label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" placeholder="">
+                        <label>Posta Kodu</label>
+                    </div>
+                    <div class="form-group">
+                        <select>
+                            <option value="">Lütfen Seçiniz</option>
+                            <option value="US">Amerika</option>
+                            <option value="CA">Kanada</option>
+                            <option value="UK">Birleşik Krallık</option>
+                            <option value="TR">Türkiye</option>
+                            <option value="DE">Almanya</option>
+                            <option value="FR">Fransa</option>
+                        </select>
+                        <label>Ülke</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Gönder</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,294 @@
+/* === Blog Slider Container === */
+.blog-slider-container {
+  width: 95%;
+  max-width: 800px;
+  margin: 50px auto;
+  background: #fff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 25px;
+  border-radius: 25px;
+  position: relative;
+  height: auto;           /* sabit height kaldırıldı */
+  min-height: 400px;      /* istersen ayarla */
+  transition: all 0.3s ease;
+  overflow: visible;
+}
+
+/* === Blog Slider Item === */
+.blog-slider-item {
+  display: flex;
+  align-items: flex-start;  /* resim sabit üstte kalsın */
+  gap: 20px;
+  height: auto;
+}
+
+/* === Image Part === */
+.blog-slider-image {
+  width: 300px;
+  height: 300px;
+  border-radius: 20px;
+  position: relative;
+  overflow: visible; /* dışarı taşmasına izin ver */
+}
+
+
+.blog-slider-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 20px;
+  transition: all 0.3s;
+  background: #fff; /* taşan kısımların altına beyaz ya da istediğin renk */
+  transform: translateX(-40px);
+}
+
+
+/* === Content Part === */
+.blog-slider-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-slider-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2a2a2a;
+  margin-bottom: 10px;
+}
+
+/* ana metin */
+.blog-slider-text {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #4e4a67;
+}
+
+/* ekstra metin */
+.blog-slider-extra {
+  font-size: 16px;           /* aynı boyutta */
+  line-height: 1.5;
+  color: #4e4a67;
+  max-height: 0;             /* gizli */
+  overflow: hidden;          /* taşma engelle */
+  transition: max-height 0.45s ease, opacity 0.35s ease;
+  opacity: 0;
+  margin-top: 10px;
+}
+
+/* açıkken */
+.blog-slider-extra.open {
+  max-height: 800px; /* ihtiyaca göre büyüt */
+  opacity: 1;
+}
+
+/* buton */
+.blog-slider-button {
+  margin-top: 15px;
+  align-self: flex-start;
+  padding: 10px 20px;
+  background: linear-gradient(147deg, #9d50bb 0%, #6e48aa 74%);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.blog-slider-button:hover {
+  background: linear-gradient(147deg, #6e48aa 0%, #9d50bb 74%);
+}
+
+/* === Pagination === */
+.blog-slider-pagination {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.blog-slider-pagination span {
+  width: 12px;
+  height: 12px;
+  border-radius: 10px;
+  background: #ccc;
+  margin: 6px 0;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.blog-slider-pagination span.active {
+  background: #6e48aa;
+  height: 30px;
+  box-shadow: 0px 0px 12px rgba(110, 72, 170, 0.4);
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .blog-slider-item {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .blog-slider-image {
+    transform: none; /* mobilde kayma yok */
+    width: 90%;
+    height: 200px;
+  }
+
+  .blog-slider-content {
+    width: 100%;
+    padding: 0 12px;
+    margin-top: 12px;
+  }
+}
+
+
+
+/* REVERSE */
+/* === Container === */
+.right-image-slider-container {
+  width: 95%;
+  max-width: 800px;
+  margin: 50px auto;
+  background: #fff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 25px;
+  padding-left: 60px;
+  border-radius: 25px;
+  position: relative;
+  height: auto;
+  min-height: 400px;
+  transition: all 0.3s ease;
+  overflow: visible;
+}
+
+/* === Slider Item === */
+.right-image-slider-item {
+  display: flex;
+  flex-direction: row-reverse; /* resim sağa geçer, içerik sola */
+  align-items: flex-start;
+  gap: 20px;
+  height: auto;
+}
+
+/* === Image Part === */
+.right-image-slider-image {
+  width: 300px;
+  height: 300px;
+  border-radius: 20px;
+  overflow: visible;
+}
+
+.right-image-slider-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 20px;
+  transition: all 0.3s;
+  background: #fff;
+  transform: translateX(40px);
+}
+
+/* === Content Part === */
+.right-image-slider-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-image-slider-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2a2a2a;
+  margin-bottom: 10px;
+}
+
+.right-image-slider-text {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #4e4a67;
+}
+
+.right-image-slider-extra {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #4e4a67;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s ease, opacity 0.35s ease;
+  opacity: 0;
+  margin-top: 10px;
+}
+
+.right-image-slider-extra.open {
+  max-height: 800px;
+  opacity: 1;
+}
+
+/* === Button === */
+.right-image-slider-button {
+  margin-top: 15px;
+  align-self: flex-start;
+  padding: 10px 20px;
+  background: linear-gradient(147deg, #9d50bb 0%, #6e48aa 74%);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.right-image-slider-button:hover {
+  background: linear-gradient(147deg, #6e48aa 0%, #9d50bb 74%);
+}
+
+/* === Pagination === */
+.right-image-slider-pagination {
+  position: absolute;
+  left: 20px;      /* sağdan -> soldan */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+/* Dotlar aynı kalabilir */
+.right-image-pagination-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 10px;
+  background: #ccc;
+  margin: 6px 0;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.right-image-pagination-dot.active {
+  background: #6e48aa;
+  height: 30px;
+  box-shadow: 0px 0px 12px rgba(110, 72, 170, 0.4);
+}
+/* === Responsive === */
+@media (max-width: 768px) {
+  .right-image-slider-item {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .right-image-slider-image img {
+    transform: none;
+    width: 90%;
+    height: 200px;
+  }
+
+  .right-image-slider-content {
+    width: 100%;
+    padding: 0 12px;
+    margin-top: 12px;
+  }
+}
