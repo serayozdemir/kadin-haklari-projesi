@@ -23,37 +23,35 @@
   padding: 1rem;
 }
 
-
-
 .cards_item:first-child {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 15px;
-    min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  min-height: 300px;
 }
 .cards_item:first-child h2 {
-    text-align: center;
-    line-height: 1.1;
-    color: #5c3d99;
-    font-weight: 700;
-    font-size: 4rem;
-    margin: 0;
-    padding: 20px;
-    word-spacing: 9999px; /* Kelimeleri alt alta getirir */
+  text-align: center;
+  line-height: 1.1;
+  color: #5c3d99;
+  font-weight: 700;
+  font-size: 4rem;
+  margin: 0;
+  padding: 20px;
+  word-spacing: 9999px; /* Kelimeleri alt alta getirir */
 }
 @media (max-width: 768px) {
-    .cards_item:first-child h2 {
-        font-size: 2rem;
-        padding: 15px;
-    }
+  .cards_item:first-child h2 {
+    font-size: 2rem;
+    padding: 15px;
+  }
 }
 
 @media (max-width: 480px) {
-    .cards_item:first-child h2 {
-        font-size: 1.5rem;
-        padding: 12px;
-    }
+  .cards_item:first-child h2 {
+    font-size: 1.5rem;
+    padding: 12px;
+  }
 }
 
 .card_image {
@@ -141,7 +139,7 @@ hr {
 
 .card_text p {
   margin: 0 0 24px;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
 }
 

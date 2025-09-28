@@ -444,6 +444,8 @@ div.siddet-magduru-container{
 				font-size: 1rem;
 				margin-block: 1rem;
 				font-weight: 300;
+				align:left;
+				padding-left:30px;
 			}
 			& ul{
 				margin-block: 0;

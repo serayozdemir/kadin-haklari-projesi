@@ -1,9 +1,11 @@
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hakkımızda - Kadına Şiddet Farkındalık Platformu</title>
+    <title>Hakkımızda - Sessiz Çığlık</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -12,17 +14,56 @@
         }
 
         body {
-           
             line-height: 1.6;
             color: #333;
             background-color: #f1f2f6;
         }
 
+        /* NAVBAR STYLES */
+        .navbar {
+            padding: 40px;  
+            height: 80px;        
+            z-index: 1000;
+            margin-top: 10px;
+        }
+
+        a.navbar-brand {
+            color: #7b2cbf;
+        }
+
+        div#navbarSupportedContent.navbar-collapse.collapse.show {
+            background-color: #f8f9fa;
+            border-radius: 0.375rem;
+            padding: 10px;
+        }
+
+        div.container-fluid img {
+            width: 20px;
+            margin: 7px;
+        }
+
+        .navbar a {
+            font-size: 18px;   
+            font-weight: 600;  
+        }
+
+        .form-control:focus {
+            border-color: #7b2cbf !important;
+            outline: none !important;
+            box-shadow: 0 0 5px #7b2cbf !important;
+        }
+
+        .btn-outline-danger {
+            background-color: #7b2cbf !important;
+            color: white !important;
+            border-color: #7b2cbf !important;
+        }
+
+        /* MAIN CONTENT STYLES */
         .hakkimizda-section {
             max-width: 1200px;
             margin: 0 auto;
             padding: 80px 20px;
-            
         }
 
         .section-header {
@@ -54,6 +95,7 @@
             color: #7f8c8d;
             max-width: 700px;
             margin: 0 auto;
+            font-weight: 500;
         }
 
         .content-grid {
@@ -70,25 +112,34 @@
 
         .text-content h3 {
             font-size: 2rem;
-            color: #8e44ad;
+            color: #ce8eea;
             margin-bottom: 20px;
         }
 
         .text-content p {
             font-size: 1.1rem;
-            color: #555;
+            color: #eae1e1;
             margin-bottom: 20px;
             text-align: justify;
         }
 
         .highlight-text {
-            color: #8e44ad;
+            color: #d7a2ee;
             font-weight: bold;
         }
 
         .purple-text {
-            color: #8e44ad;
+            color: #d7a2ee;
             font-weight: bold;
+        }
+
+        .hashtag {
+            color: #d7a2ee;
+            font-weight: bold;
+            font-size: 1.3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-decoration: none;
+            margin: 8px;
         }
 
         .image-content {
@@ -99,7 +150,7 @@
             width: 100%;
             max-width: 500px;
             height: 350px;
-            background: linear-gradient(135deg, #6c5ce7 0%, #5f3dc4 100%);
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             border-radius: 15px;
             display: flex;
             align-items: center;
@@ -107,6 +158,14 @@
             color: white;
             font-size: 3rem;
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            padding: 20px;
+        }
+
+        .logo-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
         }
 
         .mission-section {
@@ -116,12 +175,33 @@
             box-shadow: 0 10px 30px rgba(108, 92, 231, 0.15);
             margin-bottom: 60px;
             text-align: center;
+            position: relative;
+        }
+        .mission-section.mini {
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+        .mission-section.mini .mission-title {
+            font-size: 1.5rem;
+        }
+        .mission-section.mini .mission-text {
+            font-size: 1rem;
+        }
+
+        .mission-logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            opacity: 0.7;
         }
 
         .mission-title {
             font-size: 2.5rem;
             color: #8e44ad;
             margin-bottom: 30px;
+            font-weight: 600;
         }
 
         .mission-text {
@@ -161,11 +241,6 @@
             border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .goal-icon {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-        }
-
         .goal-title {
             font-size: 1.1rem;
             margin-bottom: 8px;
@@ -202,6 +277,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
+            margin-bottom: 40px;
         }
 
         .importance-item {
@@ -209,11 +285,13 @@
             padding: 20px;
         }
 
-        .importance-number {
-            font-size: 2.5rem;
-            color: #6c5ce7;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .chart-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .importance-text {
@@ -228,6 +306,8 @@
             border-radius: 15px;
             text-align: center;
             box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            width: 100%;
+            margin: 0 auto;
         }
 
         .cta-title {
@@ -253,35 +333,14 @@
             color: #ecf0f1;
         }
 
-        .neden-card {
-            background: #6c5ce7;
-            color: white;
-            padding: 30px 25px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            margin-bottom: 40px;
-        }
-        .neden-card h3 {
-            color: #fff;
-            margin-bottom: 15px;
-        }
-        .neden-card p {
-            color: #f1f2f6;
-            text-align: justify;
-        }
-        .neden-card .highlight-text,
-        .neden-card .purple-text {
-            color: #ffeaa7;
-        }
-
-        /* FOOTER */
+        /* FOOTER STYLES */
         .footer {
-          background-color: #1a1a1a; /* koyu ton */
-          color: #fff;
-          padding: 40px 20px;
-          text-align: center;
-          font-family: 'Arial', sans-serif;
-          margin-top:70px;
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            margin-top: 70px;
         }
 
         .footer-container {
@@ -289,78 +348,41 @@
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
+
         .footer-logo h2 {
-          font-size: 24px;
-          margin-bottom: 10px;
-          color:#9d4edd;
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #9d4edd;
         }
 
         .footer-links a {
-          color: #fff;
-          margin: 0 10px;
-          text-decoration: none;
-          transition: color 0.3s;
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s;
         }
 
         .footer-links a:hover {
-          color: #9d4edd; /* kırmızı vurgu */
+            color: #9d4edd;
         }
 
         .footer-social a img {
-            width: 25px;
-            height: 25px;
+            width: 30px;
+            margin: 0 5px;
+            transition: transform 0.3s;
         }
+
         .footer-social a img:hover {
-          transform: scale(1.2);
+            transform: scale(1.2);
         }
 
         .footer-copy {
-          margin-top: 20px;
-          font-size: 14px;
-          color: #ccc;
-        }
-
-        /* NAVBAR */
-        .navbar {
-          padding: 40px;  
-          height: 80px;        
-          z-index: 1000;
-          margin-top:10px;
-        }
-        a.navbar-brand{
-          color:#7b2cbf;
-        }
-        div#navbarSupportedContent.navbar-collapse.collapse.show{
-          background-color:#f8f9fa;
-          border-radius:0.375rem;
-          padding:10px;
-        }
-        div.container-fluid img{
-          width: 20px;
-          margin:7px;
-        }
-        .navbar a {
-          font-size: 18px;   
-          font-weight: 600;  
-        }
-        .form-control:focus {
-          border-color: #7b2cbf !important;
-          outline: none !important;
-          box-shadow: 0 0 5px #7b2cbf !important;
-        }
-        .btn-outline-danger{
-          background-color:#7b2cbf !important;
-          color:white !important;
-          border-color:#7b2cbf !important;
-        }
-
-        @media (max-width: 992px) {
-            .navbar-nav {
-                flex-direction: column;
-                gap: 10px;
-            }
+            margin-top: 20px;
+            font-size: 14px;
+            color: #ccc;
         }
 
         @media (max-width: 768px) {
@@ -388,42 +410,37 @@
             .goals-grid {
                 grid-template-columns: 1fr;
             }
-            .footer-container {
-                flex-direction: column;
-                text-align: center;
+
+            .chart-container {
+                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- NAVBAR START-->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <img src="./images/purple-ribbon.png">
-            <a class="navbar-brand fw-bold" href="index.html">SESSİZ ÇIĞLIK</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                    <a class="nav-link" href="istatistikler.html">İstatistikler</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="siddetin_turleri.html">Şiddetin Türleri</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="istanbul_sozlesmesi.html">İstanbul Sözleşmesi</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                    <button class="btn btn-outline-danger" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-    <!-- NAVBAR END-->
+  <!-- NAVBAR START-->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <img src="./images/purple-ribbon.png" alt="logo" >
+      <a class="navbar-brand fw-bold" href="index.html">SESSİZ ÇIĞLIK</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="istatistikler.html">İstatistikler</a></li>
+          <li class="nav-item"><a class="nav-link" href="siddet_bicimleri.html">Şiddet Biçimleri</a></li>
+          <li class="nav-item"><a class="nav-link" href="istanbul_sozlesmesi.html">İstanbul Sözleşmesi</a></li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+          <button class="btn btn-outline-danger" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <!-- NAVBAR END-->
+
     <section class="hakkimizda-section">
         <div class="section-header">
             <h2 class="section-title">Hakkımızda</h2>
@@ -433,34 +450,35 @@
         </div>
 
         <div class="content-grid">
-            <div class="neden-card">
-                <div class="text-content">
-                    <h3>Neden Buradayız?</h3>
-                    <p>
-                        <span class="highlight-text">Kadına şiddet</span> toplumumuzun en acil sorunlarından biridir. 
-                        Her gün sayısız kadın fiziksel, psikolojik, ekonomik ve cinsel şiddete maruz kalıyor.
-                    </p>
-                    <p>
-                        Bu platform, <span class="purple-text">farkındalık yaratmak</span>, doğru bilgileri paylaşmak ve 
-                        yardıma ihtiyacı olan kadınlara ulaşabilecekleri kaynakları göstermek amacıyla oluşturuldu.
-                    </p>
-                    <p>
-                        <span class="highlight-text">Sessizlik şiddettir.</span> Birlikte ses çıkarıp, bu döngüyü kırabiliriz.
-                    </p>
-                </div>
+            <div class="text-content goals-section">
+                <h3>Neden Buradayız?</h3>
+                <p>
+                    <span class="highlight-text">Kadına şiddet</span> toplumumuzun en acil sorunlarından biridir. 
+                    Her gün sayısız kadın fiziksel, psikolojik, ekonomik ve cinsel şiddete maruz kalıyor.
+                </p>
+                <p>
+                    Bu platform, <span class="purple-text">farkındalık yaratmak</span>, doğru bilgileri paylaşmak ve 
+                    yardıma ihtiyacı olan kadınlara ulaşabilecekleri kaynakları göstermek amacıyla oluşturuldu.
+                </p>
+                <p>
+                    <span class="highlight-text">Sessizlik şiddettir.</span> Birlikte ses çıkarıp, bu döngüyü kırabiliriz. 
+                    <a href="https://twitter.com/intent/tweet?text=Kad%C4%B1n%20cinayetlerine&hashtags=DurDe"
+                        target="_blank" class="hashtag">  #DurDe
+                    </a>
+                </p>
             </div>
-           
-
-
-        <div class="mission-section">
-            <h3 class="mission-title">Misyonumuz</h3>
-            <p class="mission-text">
-                Kadına şiddetin her türüne karşı durmak, toplumsal farkındalığı artırmak ve 
-                şiddet mağduru kadınlara güvenli bir bilgi kaynağı sunmaktır. 
-                Hiçbir kadının yalnız olmadığını, yardım alabileceğini ve 
-                güçlü olduğunu hatırlatmak istiyoruz.
-            </p>
+            <div class="mission-section mini">
+                <img src="./images/purple-ribbon.png" alt="Logo" class="mission-logo">
+                <h3 class="mission-title">Misyonumuz</h3>
+                <p class="mission-text">
+                    Kadına şiddetin her türüne karşı durmak, toplumsal farkındalığı artırmak ve 
+                    şiddet mağduru kadınlara güvenli bir bilgi kaynağı sunmaktır. 
+                    Hiçbir kadının yalnız olmadığını, yardım alabileceğini ve 
+                    güçlü olduğunu hatırlatmak istiyoruz.
+                </p>
+            </div>
         </div>
+
 
         <div class="goals-section">
             <h3 class="goals-title">Hedeflerimiz</h3>
@@ -500,29 +518,32 @@
             <h3 class="importance-title">Bu Çalışma Neden Önemli?</h3>
             <div class="importance-content">
                 <div class="importance-item">
-                    <div class="importance-number">%38</div>
+                    <div class="importance-number"><strong>%38</strong></div>
                     <div class="importance-text">
                         Dünyada kadınlar en çok tanıdığı erkekler tarafından öldürülüyor
                     </div>
                 </div>
                 <div class="importance-item">
-                    <div class="importance-number">Her Gün</div>
+                    <div class="importance-number"><strong>Her Gün</strong></div>
                     <div class="importance-text">
                         Türkiye'de ortalama 1 kadın erkek şiddetiyle yaşamını yitiriyor
                     </div>
                 </div>
                 <div class="importance-item">
-                    <div class="importance-number">%90</div>
+                    <div class="importance-number"><strong>%90</strong></div>
                     <div class="importance-text">
                         Kadın cinayetlerinin faillerinin tanıdık olduğu tespit ediliyor
                     </div>
                 </div>
                 <div class="importance-item">
-                    <div class="importance-number">Milyonlarca</div>
+                    <div class="importance-number"><strong>Milyonlarca</strong></div>
                     <div class="importance-text">
                         Kadın dünyada şiddetin farklı türleriyle karşı karşıya
                     </div>
                 </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="violenceChart" width="400" height="200"></canvas>
             </div>
         </div>
 
@@ -534,20 +555,21 @@
             </p>
             <div class="emergency-number">112</div>
             <p class="emergency-text">
-                ALO 1 Polis İmdat Hattı<br>
+                112 Acil Çağrı Merkezi<br>
                 24 saat hizmet vermektedir
             </p>
         </div>
     </section>
-     <!-- FOOTER START-->
+
+    <!-- FOOTER START -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-logo">
                 <h2>Sessiz Çığlık</h2>
             </div>
             <div class="footer-links">
-                <a href="#hakkimizda">Hakkımızda</a>
-                <a href="#iletisim">İletişim</a>
+                <a href="hakkimizda.html">Hakkımızda</a>
+                <a href="contact_with_us.html" target="_blank">İletişim</a>
                 <a href="#gizlilik">Gizlilik Politikası</a>
             </div>
             <div class="footer-social">
@@ -558,6 +580,65 @@
         </div>
         <p class="footer-copy">© 2025 Sessiz Çığlık. Tüm hakları saklıdır.</p>
     </footer>
-    <!--FOOTER END-->
+    <!-- FOOTER END -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    
+    <script>
+        // Chart.js ile grafik oluşturma
+        const ctx = document.getElementById('violenceChart').getContext('2d');
+        const violenceChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Dünyada Kadın Cinayetleri', 'Türkiye\'de Günlük Ortalama', 'Tanıdık Fail Oranı', 'Şiddet Mağduru Kadınlar'],
+                datasets: [{
+                    label: 'İstatistikler',
+                    data: [38, 1, 90, 35],
+                    backgroundColor: [
+                        '#6c5ce7',
+                        '#e17055',
+                        '#fd79a8',
+                        '#9d4edd'
+                    ],
+                    borderColor: [
+                        '#5f3dc4',
+                        '#d63031',
+                        '#e84393',
+                        '#8e44ad'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Kadına Şiddet İstatistikleri',
+                        font: {
+                            size: 18
+                        }
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                if (value <= 1) return value + ' kişi/gün';
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
+        
+        
